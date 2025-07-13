@@ -6,27 +6,25 @@ const actionBtn = document.getElementById('action-btn') as HTMLButtonElement;
 const scoreElement = document.getElementById('score') as HTMLDivElement;
 const highScoreElement = document.getElementById('high-score') as HTMLDivElement;
 
-// Game settings
 const settings = {
-    baseGameSpeed: 5,            // ↑ Начальная скорость увеличена (было 3)
-    maxGameSpeed: 18,            // ↑ Макс. скорость увеличена (было 12)
-    speedIncrease: 0.5,          // ↑ Сильнее ускорение (было 0.3)
+    baseGameSpeed: 5,            
+    maxGameSpeed: 18,            
+    speedIncrease: 0.5,          
     jumpForce: 12,
     gravity: 0.5,
     spriteHeight: 60,
     obstacleWidth: 20,
     gameWidth: 600,
-    minSpawnInterval: 500,       // ↑ Кактусы появляются чаще (было 700)
-    maxSpawnInterval: 900,       // ↑ Уменьшен максимальный интервал (было 1300)
-    minObstacleGap: 300,           // ↑ Меньше расстояние между кактусами (было 400)
-    maxObstacleGap: 500,           // ↓ Уменьшен максимальный разрыв (было 600)
+    minSpawnInterval: 500,       
+    maxSpawnInterval: 900,       
+    minObstacleGap: 300,           
+    maxObstacleGap: 500,           
     scoreIncreaseInterval: 100,
-    speedUpInterval: 30,         // ↑ Ускорение каждые 30 очков (было 50)
+    speedUpInterval: 30,         
     baseScoreMultiplier: 1,
-    speedScoreFactor: 0.3        // ↑ Сильнее влияние скорости на очки (было 0.2)
+    speedScoreFactor: 0.3        
 };
 
-// Game state
 let isJumping = false;
 let isGameOver = false;
 let isGameRunning = false;
@@ -40,7 +38,6 @@ let score = 0;
 let highScore = 0;
 let currentGameSpeed = settings.baseGameSpeed;
 
-// Load high score
 function loadHighScore() {
     const saved = localStorage.getItem('spriteHighScore');
     highScore = saved ? parseInt(saved) : 0;
@@ -70,7 +67,7 @@ function startGame() {
     score = 0;
     currentGameSpeed = settings.baseGameSpeed;
     lastScoreUpdateTime = performance.now();
-    lastObstacleTime = performance.now(); // Важно инициализировать!
+    lastObstacleTime = performance.now();
     messageScreen.style.display = 'none';
     updateScoreDisplay();
     initGame();
@@ -142,7 +139,6 @@ function updateSprite() {
 function updateObstacles() {
     const now = performance.now();
     
-    // Спавн нового кактуса
     if (isGameRunning && now - lastObstacleTime > getRandomSpawnDelay()) {
         const newObstacle = createObstacle(nextObstacleX);
         obstacles.push(newObstacle);
@@ -150,13 +146,11 @@ function updateObstacles() {
         nextObstacleX += settings.obstacleWidth + getRandomObstacleGap();
     }
     
-    // Движение кактусов
     obstacles.forEach(obstacle => {
         const currentLeft = parseInt(obstacle.style.left);
         obstacle.style.left = `${currentLeft - currentGameSpeed}px`;
     });
     
-    // Удаление вышедших за границы
     obstacles = obstacles.filter(obstacle => {
         const left = parseInt(obstacle.style.left);
         if (left < -settings.obstacleWidth) {
@@ -217,7 +211,6 @@ function gameLoop() {
     animationFrameId = requestAnimationFrame(gameLoop);
 }
 
-// Event listeners
 document.addEventListener('keydown', (e) => {
     if ((e.code === 'Space' || e.key === 'ArrowUp') && !isGameRunning) {
         startGame();
@@ -232,7 +225,6 @@ document.addEventListener('keydown', (e) => {
 
 actionBtn.addEventListener('click', startGame);
 
-// Initialize
 window.addEventListener('load', () => {
     loadHighScore();
     showMessage('SPRITE RUN', 'START');
