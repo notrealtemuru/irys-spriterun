@@ -1,0 +1,91 @@
+/* style.css */
+.game-container {
+    position: relative;
+    width: 600px;
+    height: 200px;
+    margin: 20px auto 0;
+    overflow: hidden;
+    background-color: #f7f7f7;
+}
+
+.ground-line {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 2px;
+    background-color: #535353;
+}
+
+.sprite {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    bottom: 0;
+    left: 50px;
+    z-index: 2;
+    background-image: url('images/sprite.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.obstacle {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    bottom: 0;
+    z-index: 2;
+    left: 100%;
+    background-image: url('images/obstacle.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.message-screen {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(247, 247, 247, 0.9);
+    padding: 20px;
+    border-radius: 5px;
+    z-index: 10;
+    text-align: center;
+}
+
+.message-screen h2 {
+    color: #535353;
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+}
+
+.message-screen button {
+    padding: 8px 20px;
+    background-color: #535353;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    text-transform: uppercase;
+}
+
+.score-display {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    display: flex;
+    gap: 20px;
+    z-index: 100;
+}
+
+.score, .high-score {
+    font-family: 'Courier New', monospace;
+    font-size: 20px;
+    font-weight: bold;
+    color: #535353;
+}
